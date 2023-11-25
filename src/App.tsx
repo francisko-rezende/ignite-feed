@@ -1,9 +1,10 @@
+import { Header } from "./components/Header";
 import "./globals.css";
 
 function App() {
   return (
     <>
-      <h1>Ignite feed</h1>
+      <Header>Ignite Logo</Header>
     </>
   );
 }

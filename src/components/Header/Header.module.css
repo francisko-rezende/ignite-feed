@@ -1,0 +1,16 @@
+.header {
+  background-color: var(--gray-800);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  gap: 1rem;
+}
+
+.header img {
+  max-height: 64px;
+  max-width: 60px;
+  object-fit: cover;
+}
