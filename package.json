@@ -11,7 +11,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test:watch": "vitest --watch",
-    "test": "vitest",
+    "test": "vitest --passWithNoTests",
     "generate": "npx plop --plopfile generators/plopfile.js",
     "type-check:watch": "tsc -w --project tsconfig.json"
   },
