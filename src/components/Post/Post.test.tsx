@@ -15,6 +15,7 @@ describe("Post", () => {
 
   it("should render the author's name when Post component is rendered", () => {
     render(<Post />);
-    expect(screen.getByText("Francisko de Moraes Rezende")).toBeInTheDocument();
+    const name = screen.getAllByText("Francisko de Moraes Rezende");
+    expect(name[0]).toBeInTheDocument();
   });
 });

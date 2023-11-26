@@ -13,7 +13,7 @@ export const Comment = () => {
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Diego Fernandes</strong>
+              <strong>Francisko de Moraes Rezende</strong>
               <time title="May 11, 08:13AM" dateTime="2022-05-11 08:13:30">
                 Around 1 hour ago
               </time>
