@@ -1,0 +1,15 @@
+.avatarWithBorder {
+  --border-width: 4px;
+  --outline-width: 2px;
+  width: calc(var(--border-width) * 2 + var(--outline-width) * 2 + 3rem);
+  height: calc(var(--border-width) * 2 + var(--outline-width) * 2 + 3rem);
+  border-radius: 8px;
+  border: var(--border-width) solid var(--gray-800);
+  outline: var(--outline-width) solid var(--green-500);
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+}
