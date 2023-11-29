@@ -1,42 +1,59 @@
 import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
+import { format, formatDistanceToNow, formatISO } from "date-fns";
 import styles from "./Post.module.css";
 
-export const Post = () => {
+type Author = {
+  avatarUrl: string;
+  name: string;
+  role: string;
+};
+
+type Content = {
+  type: string;
+  content: string;
+};
+
+type Post = {
+  author: Author;
+  content: Content[];
+  publishedAt: Date;
+};
+
+export const Post = ({ author, content, publishedAt }: Post) => {
+  const formattedDate = format(publishedAt, "LLLL dd 'at' HH:mm'h'");
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    addSuffix: true,
+  });
+  const isoDate = formatISO(publishedAt);
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar
-            hasBorder
-            src="https://github.com/francisko-rezende.png"
-            alt="user avatar"
-          />
+          <Avatar hasBorder src={author.avatarUrl} alt="user avatar" />
           <div className={styles.authorInfo}>
-            <strong>Francisko de Moraes Rezende</strong>
-            <span>Front-end Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
-        <time title="May 11, 8:13" dateTime="2022-05-11 08:13:30">
-          Published one hour ago
+        <time title={formattedDate} dateTime={isoDate}>
+          {publishedDateRelativeToNow}
         </time>
       </header>
       <div className={styles.content}>
+        {content
+          .filter(({ type }) => type === "paragraph")
+          .map(({ content }, index) => (
+            <p key={index}>{content}</p>
+          ))}
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ab
-          nobis non tempora qui sit repudiandae. Repudiandae, libero? Inventore
-          sunt voluptatibus reiciendis maxime consectetur quos harum doloremque
-          officia soluta ad.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas unde
-          facere omnis esse cupiditate doloribus porro ab. Ab sint omnis,
-          consequuntur architecto praesentium sapiente, maxime nemo quas sit
-          iure sunt.
-        </p>
-        <p>
-          <a href="#">#newproject</a> <a href="#">#nlw</a>{" "}
-          <a href="#">#rocketseat</a>
+          {content
+            .filter(({ type }) => type === "hashtag")
+            .map(({ content }, index) => (
+              <a href="#" key={index}>
+                {content}
+              </a>
+            ))}
         </p>
       </div>
 
