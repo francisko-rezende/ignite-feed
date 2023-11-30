@@ -2,6 +2,7 @@ import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
 import { format, formatDistanceToNow, formatISO } from "date-fns";
 import styles from "./Post.module.css";
+import { FormEvent, useState } from "react";
 
 type Author = {
   avatarUrl: string;
@@ -26,6 +27,20 @@ export const Post = ({ author, content, publishedAt }: Post) => {
     addSuffix: true,
   });
   const isoDate = formatISO(publishedAt);
+
+  const [newCommentText, setNewCommentText] = useState("");
+  const [comments, setComments] = useState(["Top"]);
+
+  function handleCreateNewComment(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setComments((comments) => [...comments, newCommentText]);
+    setNewCommentText("");
+  }
+
+  function handleNewCommentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setNewCommentText(e.target.value);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -57,18 +72,25 @@ export const Post = ({ author, content, publishedAt }: Post) => {
         </p>
       </div>
 
-      <form className={styles.commentForm}>
-        <strong>Give some feedback:</strong>
-        <textarea placeholder="Leave a comment" />
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+        <label htmlFor="comment">
+          <strong>Give some feedback:</strong>
+        </label>
+        <textarea
+          onChange={handleNewCommentChange}
+          id="comment"
+          value={newCommentText}
+          placeholder="Leave a comment"
+        />
         <footer>
           <button type="submit">Submit</button>
         </footer>
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment) => (
+          <Comment content={comment} key={comment} />
+        ))}
       </div>
     </article>
   );

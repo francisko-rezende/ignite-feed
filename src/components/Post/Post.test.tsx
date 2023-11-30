@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { Post } from ".";
+import { renderWithUser } from "../../utils/tests";
 
 const mockPost = {
   id: 1,
@@ -40,5 +41,19 @@ describe("Post", () => {
     render(<Post {...mockPost} />);
     const name = screen.getAllByText("Francisko de Moraes Rezende");
     expect(name[0]).toBeInTheDocument();
+  });
+
+  it("should add new posts", async () => {
+    const { user } = renderWithUser(<Post {...mockPost} />);
+    const textarea = screen.getByRole("textbox", {
+      name: /give some feedback:/i,
+    });
+    await user.click(textarea);
+    await user.type(textarea, "new comment");
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    await user.click(submitButton);
+    const newCommentText = screen.getByText(/new comment/i);
+
+    expect(newCommentText).toBeInTheDocument();
   });
 });
