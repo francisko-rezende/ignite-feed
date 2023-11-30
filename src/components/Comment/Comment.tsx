@@ -2,7 +2,11 @@ import { ThumbsUp, Trash } from "@phosphor-icons/react";
 import styles from "./Comment.module.css";
 import { Avatar } from "../Avatar";
 
-export const Comment = () => {
+type Comment = {
+  content: string;
+};
+
+export const Comment = ({ content }: Comment) => {
   return (
     <div className={styles.comment}>
       <Avatar
@@ -24,12 +28,7 @@ export const Comment = () => {
               <Trash size={24} />
             </button>
           </header>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis
-            iure iste sint, amet, illo dolorum explicabo molestiae fugiat
-            dolorem, necessitatibus enim adipisci. Temporibus, corrupti dolorem?
-            Rerum enim minima hic voluptatem?
-          </p>
+          <p>{content}</p>
         </div>
         <footer>
           <button>
