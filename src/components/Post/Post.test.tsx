@@ -56,4 +56,19 @@ describe("Post", () => {
 
     expect(newCommentText).toBeInTheDocument();
   });
+
+  it("should delete posts", async () => {
+    const { user } = renderWithUser(<Post {...mockPost} />);
+    const textarea = screen.getByRole("textbox", {
+      name: /give some feedback:/i,
+    });
+    await user.click(textarea);
+    await user.type(textarea, "new comment");
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    await user.click(submitButton);
+    const deleteButton = screen.getByTitle(/delete comment new comment/i);
+    await user.click(deleteButton);
+    const newCommentText = screen.queryByText(/new comment/i);
+    expect(newCommentText).toBe(null);
+  });
 });

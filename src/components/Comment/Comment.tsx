@@ -4,9 +4,10 @@ import { Avatar } from "../Avatar";
 
 type Comment = {
   content: string;
+  deleteComment: () => void;
 };
 
-export const Comment = ({ content }: Comment) => {
+export const Comment = ({ content, deleteComment }: Comment) => {
   return (
     <div className={styles.comment}>
       <Avatar
@@ -24,7 +25,7 @@ export const Comment = ({ content }: Comment) => {
               </time>
             </div>
 
-            <button title="Delete comment">
+            <button title={`Delete comment ${content}`} onClick={deleteComment}>
               <Trash size={24} />
             </button>
           </header>
