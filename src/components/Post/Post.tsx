@@ -41,6 +41,13 @@ export const Post = ({ author, content, publishedAt }: Post) => {
     setNewCommentText(e.target.value);
   }
 
+  function handleDeleteComment(comment: string) {
+    const updatedComments = comments.filter(
+      (savedComment) => savedComment !== comment,
+    );
+    setComments(updatedComments);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -89,7 +96,11 @@ export const Post = ({ author, content, publishedAt }: Post) => {
 
       <div className={styles.commentList}>
         {comments.map((comment) => (
-          <Comment content={comment} key={comment} />
+          <Comment
+            content={comment}
+            key={comment}
+            deleteComment={() => handleDeleteComment(comment)}
+          />
         ))}
       </div>
     </article>

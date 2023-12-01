@@ -5,7 +5,7 @@ import { Comment } from ".";
 describe("<Comment />", () => {
   it("should render the comment with author avatar, name, time, content, and footer with clap button", () => {
     const content = "text comment";
-    render(<Comment content={content} />);
+    render(<Comment deleteComment={() => {}} content={content} />);
     const avatarElement = screen.getByAltText("comment author avatar");
     const authorElement = screen.getByText(/Francisko de Moraes Rezende/i);
     const timeElement = screen.getByText("Around 1 hour ago");
