@@ -71,4 +71,25 @@ describe("Post", () => {
     const newCommentText = screen.queryByText(/new comment/i);
     expect(newCommentText).toBe(null);
   });
+  it("should start with a disabled submit button", async () => {
+    const { user } = renderWithUser(<Post {...mockPost} />);
+    const textarea = screen.getByRole("textbox", {
+      name: /give some feedback:/i,
+    });
+    await user.click(textarea);
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    expect(submitButton).toBeDisabled();
+  });
+
+  it("should have a disabled submit button if the user types something and then deletes it", async () => {
+    const { user } = renderWithUser(<Post {...mockPost} />);
+    const textarea = screen.getByRole("textbox", {
+      name: /give some feedback:/i,
+    });
+    await user.click(textarea);
+    await user.type(textarea, "test comment");
+    await user.clear(textarea);
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    expect(submitButton).toBeDisabled();
+  });
 });

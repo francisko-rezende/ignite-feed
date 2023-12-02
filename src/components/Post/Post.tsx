@@ -48,6 +48,8 @@ export const Post = ({ author, content, publishedAt }: Post) => {
     setComments(updatedComments);
   }
 
+  const hasTypedComment = Boolean(newCommentText);
+
   return (
     <article className={styles.post}>
       <header>
@@ -84,13 +86,16 @@ export const Post = ({ author, content, publishedAt }: Post) => {
           <strong>Give some feedback:</strong>
         </label>
         <textarea
+          required
           onChange={handleNewCommentChange}
           id="comment"
           value={newCommentText}
           placeholder="Leave a comment"
         />
         <footer>
-          <button type="submit">Submit</button>
+          <button disabled={!hasTypedComment} type="submit">
+            Submit
+          </button>
         </footer>
       </form>
 
